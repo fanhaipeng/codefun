@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var wordslist = require('./server/wordslist.js');
 
-app.use(express.static(__dirname + '/css/'));
+app.use(express.static(__dirname + '/css'));
 
 app.get('/', function(req, res){
     res.sendFile('index.html', {root: __dirname + '/'}, function(err){

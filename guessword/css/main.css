@@ -1,14 +1,14 @@
-.letter-panel{
-    width: 520px;
-}
 #guessword{
     width: 550px;
     margin: auto;
-}
-.letter-panel{
-    border: solid 2px #ddd;
+    border: solid 2px #DDD;
     padding: 30px 20px 10px 30px;
-    border-radius: 5px;
+}
+
+.letter-panel{
+    width: 520px;
+    margin-top: 30px;
+    padding-left: 20px;
 }
 
 .letter-panel li{
