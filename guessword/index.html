@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <title>Guess Word</title>
+    <head>
+        <link rel="stylesheet" type="text/css" href="css/main.css" />
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    </head>
+    <body>
+        <div id='guessword'>
+            <h2>{{word}}</h2>
+            <ul class="letter-panel">
+                <li v-for=  "(letter in letters">
+                    <a href="javascript:void();">{{ letter }}</a>
+                </li>
+            </ul>
+        </div>
+        <script src="/index.js"></script>
+    </body>
+</html>
