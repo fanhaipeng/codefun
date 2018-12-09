@@ -13,8 +13,10 @@
                     <span v-else>_</span></li>
             </ul>
             <ul class="letter-panel">
-                <li v-for= "letter in letters">
-                    <a href="javascript:void(0)" v-on:click="letterClicked(letter)">{{ letter }}</a>
+                <li v-for= "l in letters">
+                    <a href="javascript:void(0)" 
+                       v-on:click="letterClicked(l.value)"
+                       v-bind:class="{ tried : l.tried }">{{ l.value }}</a>
                 </li>
             </ul>
         </div>

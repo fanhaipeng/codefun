@@ -16,6 +16,10 @@
     margin-bottom: 30px;
 }
 
+.letter-panel li a.tried{
+    background-color: #aaa;
+}
+
 .letter-panel li a{
     width: 40px;
     padding: 10px 15px;

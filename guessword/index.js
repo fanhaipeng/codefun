@@ -10,10 +10,30 @@ var vm = new Vue({
                { value: 's', guessed: false},
                { value: 'e', guessed: false}
             ],
-        letters: 'abcdefghijklmnopqrstuvwxyz'.split('')
+        letters: []
     },
     methods:{
+        init: function(){
+            for (let l of 'abcdefghijklmnopqrstuvwxyz'.split('')){
+                this.letters.push({
+                    value: l,
+                    tried: false
+                })
+            }
+        },
+
         letterClicked: function(letter) {
+            for (let l of this.letters){
+                if (l.value === letter){
+                    if (l.tried){
+                        return;
+                    }
+
+                    l.tried = true;
+                    break;
+                }
+            }
+            
             for (let l of this.word){
                 if (letter === l.value){
                     l.guessed = true;
@@ -22,3 +42,4 @@ var vm = new Vue({
         }
     }
 });
+vm.init();
