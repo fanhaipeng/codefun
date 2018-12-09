@@ -27,3 +27,15 @@
     text-decoration: none;
     border-radius: 3px;
 }
+
+.word-canvas{
+    padding-left: 20px;
+}
+
+.word-canvas li{
+    display: inline-block;
+    margin-right: 5px;
+    font-size: 48px;
+    font-weight: bold;
+    font-family: Arial;
+}

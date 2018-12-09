@@ -7,10 +7,14 @@
     </head>
     <body>
         <div id='guessword'>
-            <h2>{{word}}</h2>
+            <ul class="word-canvas">
+                <li v-for="letter in word">
+                    <span v-if="letter.guessed">{{letter.value}}</span>
+                    <span v-else>_</span></li>
+            </ul>
             <ul class="letter-panel">
-                <li v-for=  "(letter in letters">
-                    <a href="javascript:void();">{{ letter }}</a>
+                <li v-for= "letter in letters">
+                    <a href="javascript:void(0)" v-on:click="letterClicked(letter)">{{ letter }}</a>
                 </li>
             </ul>
         </div>
