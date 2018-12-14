@@ -20,6 +20,10 @@
   },
   "homepage": "https://github.com/fanhaipeng/codefun#readme",
   "dependencies": {
-    "express": "^4.16.4"
+    "axios": "^0.18.0"
+  },
+  "devDependencies": {
+    "webpack": "^4.27.1",
+    "webpack-cli": "^3.1.2"
   }
 }
