@@ -7,6 +7,9 @@
     </head>
     <body>
         <div id='guessword'>
+            <div>
+                <div class="chance-bar">You can try <span class="chance-num">{{ chances }}</span> more times, be cautious!</div>
+            </div>
             <ul class="word-canvas">
                 <li v-for="letter in word">
                     <span v-if="letter.guessed">{{letter.value}}</span>

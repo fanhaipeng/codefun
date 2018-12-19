@@ -4,7 +4,8 @@ var vm = new Vue({
     el: '#guessword',
     data: {
         word: [],
-        letters: []
+        letters: [],
+        chances: 8
     },
 
     created: function () {
@@ -22,6 +23,7 @@ var vm = new Vue({
             }
 
             this.loadWord();
+            this.chances = 8;
         },
 
         loadWord: function () {
@@ -52,15 +54,26 @@ var vm = new Vue({
                 }
             }
 
+            let guessedOnce = false;
             for (let l of this.word) {
                 if (letter === l.value) {
                     l.guessed = true;
+                    guessedOnce = true;
                 }
+            }
+
+            if (!guessedOnce){
+                this.chances--;
             }
 
             let guessStatus = this.word.filter(w => !w.guessed);
             setTimeout((result) => {
-                if (result.length === 0) {
+                if (this.chances == 0 && result.length > 0){
+                    let finalWord = this.word.map(w => w.value).join('');
+                    alert("You failed! The word is " + finalWord);
+                    this.init();
+
+                } else if (result.length === 0) {
                     alert("Congratulations, you've guessed the word!");
                     this.init();
                 }
