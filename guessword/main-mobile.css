@@ -1,0 +1,54 @@
+#guessword{
+    margin: auto;
+    padding: 10px;
+}
+
+.letter-panel{
+    margin-top: 30px;
+    padding-left: 0;
+}
+
+.letter-panel li{
+    display: inline-block;
+    margin-bottom: 30px;
+}
+
+.letter-panel li a.tried{
+    background-color: #aaa;
+}
+
+.letter-panel li a{
+    width: 40px;
+    padding: 10px 15px;
+    background-color: #00809D;
+    text-transform: uppercase;
+    font-size: 24px;
+    margin-right: 10px;
+    color: white;
+    text-decoration: none;
+    border-radius: 3px;
+}
+
+.word-canvas{
+    padding-left: 20px;
+}
+
+.word-canvas li{
+    display: inline-block;
+    margin-right: 5px;
+    font-size: 32px;
+    font-weight: bold;
+    font-family: Arial;
+    color: #666;
+}
+
+.chance-bar{
+    font-size: 24px;
+    color: #444;
+}
+
+.chance-num{
+    font-size: 32px;
+    color: #a22;
+    font-weight: bold;
+}
