@@ -1,16 +1,20 @@
 #guessword{
     margin: auto;
     padding: 10px;
+    position: relative;
 }
 
 .letter-panel{
     margin-top: 30px;
     padding-left: 0;
+    position: fixed;
+    bottom: 10px;
 }
 
 .letter-panel li{
     display: inline-block;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
+    width: 20%;
 }
 
 .letter-panel li a.tried{
@@ -18,8 +22,8 @@
 }
 
 .letter-panel li a{
-    width: 40px;
-    padding: 10px 15px;
+    width: 50px;
+    height: 50px;;
     background-color: #00809D;
     text-transform: uppercase;
     font-size: 24px;
@@ -27,6 +31,9 @@
     color: white;
     text-decoration: none;
     border-radius: 3px;
+    display: inline-block;
+    text-align: center;
+    line-height: 50px;
 }
 
 .word-canvas{
