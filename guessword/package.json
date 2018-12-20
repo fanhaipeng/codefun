@@ -1,29 +1,16 @@
 {
-  "name": "guessword",
+  "name": "guessword-server",
   "version": "1.0.0",
   "description": "guessword game server",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/fanhaipeng/codefun.git"
-  },
-  "keywords": [
-    "guessword"
-  ],
   "author": "Haipeng Fan",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/fanhaipeng/codefun/issues"
-  },
-  "homepage": "https://github.com/fanhaipeng/codefun#readme",
   "dependencies": {
-    "axios": "^0.18.0"
-  },
-  "devDependencies": {
-    "webpack": "^4.27.1",
-    "webpack-cli": "^3.1.2"
+    "express": "^4.16.4",
+    "express-device": "^0.4.2"
   }
 }

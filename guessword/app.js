@@ -4,9 +4,10 @@ var device = require('express-device');
 var app = express();
 var wordslist = require('./wordslist.js');
 
-var rootPath = __dirname + path.sep + '..' + path.sep;
+var rootPath = __dirname;
 app.use(device.capture());
-app.use(express.static(rootPath));
+app.use(express.static(rootPath + 'resources'));
+app.use(express.static(rootPath + 'scripts'));
 
 app.get('/', function(req, res){
     res.sendFile('index.html', {root: rootPath}, function(err){
@@ -21,14 +22,23 @@ app.get('/next', function(req, res){
 });
 
 app.get('/main.css', function(req, res){
-    let fileName = 'main-mobile.css';
+    let fileName = 'resources' + path.sep + 'main-mobile.css';
     if (req.device.type === 'desktop'){
-        fileName = 'main-desktop.css';
+        fileName = 'resources' + path.sep + 'main-desktop.css';
     }
 
     res.sendFile(fileName, {root: rootPath}, function(err){
-        console.error(err);
+        if (!err){
+            console.error(err);
+        }
     })
 });
 
+app.get('/main.js', function(req, res){
+    res.sendFile('scripts' + path.sep + 'main.js', {root: rootPath}, function(err){
+        if (!err){
+            console.error(err);
+        }
+    })
+})
 app.listen(process.env.PORT | 3000);
