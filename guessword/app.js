@@ -6,8 +6,6 @@ var wordslist = require('./wordslist.js');
 
 var rootPath = __dirname;
 app.use(device.capture());
-app.use(express.static(rootPath + 'resources'));
-app.use(express.static(rootPath + 'scripts'));
 
 app.get('/', function(req, res){
     res.sendFile('index.html', {root: rootPath}, function(err){
@@ -36,9 +34,17 @@ app.get('/main.css', function(req, res){
 
 app.get('/main.js', function(req, res){
     res.sendFile('scripts' + path.sep + 'main.js', {root: rootPath}, function(err){
-        if (!err){
+        if (err){
             console.error(err);
+            res.send('Error:' + err);
+            res.end();
         }
     })
 })
+
+app.get('/*', function(req, res){
+    res.send(req.path);
+    res.end();
+})
+
 app.listen(process.env.PORT | 3000);
