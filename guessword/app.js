@@ -26,7 +26,7 @@ app.get('/main.css', function(req, res){
     }
 
     res.sendFile(fileName, {root: rootPath}, function(err){
-        if (!err){
+        if (err){
             console.error(err);
         }
     })
@@ -42,9 +42,4 @@ app.get('/main.js', function(req, res){
     })
 })
 
-app.get('/*', function(req, res){
-    res.send(req.path);
-    res.end();
-})
-
-app.listen(process.env.PORT | 3000);
+app.listen(process.env.PORT || 3000);
