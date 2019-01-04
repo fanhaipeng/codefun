@@ -9,6 +9,7 @@
   "author": "Haipeng Fan",
   "license": "ISC",
   "dependencies": {
-    "azure-storage": "^2.10.2"
+    "azure-storage": "^2.10.2",
+    "express": "^4.16.4"
   }
 }
