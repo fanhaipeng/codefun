@@ -1,10 +1,9 @@
 const express = require('express');
 
-app = express();
+var app = express();
 
 app.get('/', (req, res) => {
-    res.send('<h2>Spelling Test</h2>');
-    res.end();
+    res.sendFile('index.html', { root : __dirname })
 })
 
 app.listen(process.env.PORT || 8888);
