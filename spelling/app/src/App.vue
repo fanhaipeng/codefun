@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <WordSetSelector ref="wordSetSelector"/>
+    <button v-on:click="updateList">Update List</button>
   </div>
 </template>
 
@@ -10,9 +11,11 @@ import WordSetSelector from './components/WordSetSelector.vue'
 export default {
   name: 'app',
   mounted: function(){
-    this.$refs.wordSetSelector.init();
   },
   methods: {
+    updateList : function(){
+      this.$refs.wordSetSelector.init();
+    }
   },
   components: {
     WordSetSelector
