@@ -5,17 +5,40 @@ const http = require("http");
 const subscriptionKey = "4ec4d0210b214c669885bb9ac842ede9";
 const tokenUri =
   "https://westus.api.cognitive.microsoft.com/sts/v1.0/issueToken";
-
-var sessionToken;
-var sesstionTokenTimeStamp = 0;
 const EightMinutesMilliSeconds = 1000 * 60 * 8;
-function getToken() {
-  return new Promise(function(resolve, reject) {
+const MaxWaitNumber = 5;
+
+var sessionToken = "";
+var sesstionTokenTimeStamp = 0;
+var tokenLock = false;
+
+async function waitTime(time) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(true);
+    }, time);
+  });
+}
+
+async function getToken() {
+  return new Promise(async function(resolve, reject) {
+    let waitNumber = MaxWaitNumber;
+    while (tokenLock) {
+      await waitTime((MaxWaitNumber - waitNumber + 1) * 200);
+      if (waitNumber == 0) {
+        return reject(new Error());
+      }
+
+      waitNumber--;
+    }
+
+    tokenLock = true;
     let currentTime = Date.now();
     if (
-      sessionToken &&
+      sessionToken.length != 0 &&
       currentTime - sesstionTokenTimeStamp < EightMinutesMilliSeconds
     ) {
+      tokenLock = false;
       return resolve(sessionToken);
     }
 
@@ -37,12 +60,15 @@ function getToken() {
       });
 
       res.on("end", () => {
+        sesstionTokenTimeStamp = currentTime;
         resolve(sessionToken);
+        tokenLock = false;
       });
     });
 
     request.on("error", e => {
       reject(e);
+      tokenLock = false;
     });
 
     request.write("");
@@ -68,7 +94,11 @@ function t2s(accessToken, text) {
       requestOptions,
       res => {
         if (res.statusCode !== 200) {
-          reject(`ERROR: ${res.statusCode}`);
+          reject(
+            new Error(
+              `Failed to get audio data, status code: ${res.statusCode}`
+            )
+          );
         } else {
           resolve(res);
         }
@@ -87,17 +117,10 @@ function t2s(accessToken, text) {
 module.exports = {
   text2speech: async function(word) {
     return getToken()
-      .then(
-        val => {
-          return t2s(val, word);
-        },
-        err => {
-          console.error(`ERROR: ${err}`);
-          return Promise.reject(err);
-        }
-      )
+      .then(val => {
+        return t2s(val, word);
+      })
       .catch(err => {
-        console.error(`ERROR: ${err}`);
         return Promise.reject(err);
       });
   }
