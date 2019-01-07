@@ -21,8 +21,8 @@ export default {
     init: function() {
       axios
         .get("/wordlists")
-        .then(wordlists => {
-          this.lists = wordlists.data;
+        .then(response => {
+          this.lists = response.data;
         })
         .catch(err => {
           alert(err);
