@@ -1,31 +1,40 @@
-const express = require("express")
-const blob = require("./azure-blob")
-const bodyParser = require('body-parser')
+const express = require("express");
+const blob = require("./azure-blob");
+const bodyParser = require("body-parser");
+const path = require("path");
 
+const appDistPath = `${__dirname}${path.sep}..${path.sep}app${path.sep}dist${
+  path.sep
+}`;
+console.log(`DIST PATH: ${appDistPath}`);
 var app = express();
 app.use(bodyParser.text());
+app.use(express.static(appDistPath));
 
 app.get("/", (req, res) => {
-  res.sendFile("index.html", { root: __dirname });
+  res.sendFile("index.html", {
+    root: appDistPath
+  });
 });
 
 app.get("/wordlists", getWordLists);
-app.put('/wordlist/:listname', addWordList);
+app.put("/wordlist/:listname", addWordList);
 app.listen(process.env.PORT || 8000);
 
-function addWordList(req, res){
+function addWordList(req, res) {
   let data = {
     name: req.params.listname,
-    list: req.body.split('\r\n')
-  }
+    list: req.body.split("\r\n")
+  };
 
-  blob.addWordsList(data)
-  .then(result => {
-    res.status(201).end()
-  })
-  .catch(err => {
-    res.status(500).send('Something went wrong, error: ' + err)
-  })
+  blob
+    .addWordsList(data)
+    .then(result => {
+      res.status(201).end();
+    })
+    .catch(err => {
+      res.status(500).send("Something went wrong, error: " + err);
+    });
 }
 
 function getWordLists(req, res) {
