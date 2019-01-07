@@ -8,6 +8,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "WordSetSelector",
   data: () => {
@@ -17,7 +19,14 @@ export default {
   },
   methods: {
     init: function() {
-        this.lists = ["aaa", "bbb", "ccc"]
+      axios
+        .get("/wordlists")
+        .then(wordlists => {
+          this.lists = wordlists.data;
+        })
+        .catch(err => {
+          alert(err);
+        });
     }
   }
 };

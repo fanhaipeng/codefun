@@ -41,7 +41,7 @@ function getWordLists(req, res) {
   blob
     .getWordsLists()
     .then(lists => {
-      res.send(lists);
+      res.json(lists);
     })
     .catch(err => {
       res.sendStatus(500).send("Something went wrong, error: " + err);
