@@ -1,7 +1,7 @@
 <template>
-  <div v-on:load-wordset="init">
-    <div>Select a Word List</div>
-    <ul>
+  <div v-on:load-wordset="init" class="wordlist-dropdown">
+    <button v-on:click="this.menuClicked" class="drop-btn">Select a Word List ▼</button>
+    <ul v-if="this.menuOn">
       <li v-for="(list, index) in lists" :key="index">{{ list }}</li>
     </ul>
   </div>
@@ -14,7 +14,8 @@ export default {
   name: "WordSetSelector",
   data: () => {
     return {
-      lists: ["list 1", "list 2", "list 3"]
+      lists: ["list 1", "list 2", "list 3"],
+      menuOn: false
     };
   },
   methods: {
@@ -27,12 +28,40 @@ export default {
         .catch(err => {
           alert(err);
         });
+    },
+    menuClicked: function(){
+      this.menuOn = !this.menuOn
     }
   }
 };
 </script>
 
 <style>
+.drop-btn{
+  background-color: #c9c9c9;
+  padding: 5px;
+  border-radius: 3px;
+}
+
+.wordlist-dropdown ul{
+  margin-top: 0;
+  padding: 5px;
+  background-color: #c9c9c9;
+  width: 200px;
+}
+
+.wordlist-dropdown li{
+  list-style: none;
+  border-radius: 3px;
+  background-color: #faa;
+  margin-bottom: 5px;
+  padding: 5px;
+}
+
+.wordlist-dropdown li:hover{
+  background-color: #e66;
+  cursor: pointer;
+}
 </style>
 
 
