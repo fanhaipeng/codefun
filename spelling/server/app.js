@@ -22,19 +22,25 @@ app.put("/wordlist/:listname", addWordList);
 app.listen(process.env.PORT || 8000);
 
 function addWordList(req, res) {
-  let data = {
-    name: req.params.listname,
-    list: req.body.split("\r\n")
-  };
+  let dataLoad = "";
+  req.on("data", chunk => {
+    dataLoad += chunk;
+  });
 
-  blob
-    .addWordsList(data)
-    .then(result => {
-      res.status(201).end();
-    })
-    .catch(err => {
-      res.status(500).send("Something went wrong, error: " + err);
-    });
+  req.on("end", () => {
+    let data = {
+      name: req.params.listname,
+      list: dataLoad.split(/\n|\r\n/gm)
+    };
+    blob
+      .addWordsList(data)
+      .then(result => {
+        res.status(201).end();
+      })
+      .catch(err => {
+        res.status(500).send("Something went wrong, error: " + err);
+      });
+  });
 }
 
 function getWordLists(req, res) {

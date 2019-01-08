@@ -2,6 +2,7 @@
   <div v-on:load-wordset="init" class="wordlist-dropdown">
     <button v-on:click="this.menuClicked" class="drop-btn">Select a Word List ▼</button>
     <ul v-if="this.menuOn">
+      <li v-on:click="addNew" class="wordlist-addnew">Add New Word List</li>
       <li v-for="(list, index) in lists" :key="index">{{ list }}</li>
     </ul>
   </div>
@@ -29,28 +30,32 @@ export default {
           alert(err);
         });
     },
-    menuClicked: function(){
-      this.menuOn = !this.menuOn
+    menuClicked: function() {
+      this.menuOn = !this.menuOn;
+    },
+    addNew: function() {
+      this.menuOn = false;
+      this.$emit("add-new-wordlist");
     }
   }
 };
 </script>
 
 <style>
-.drop-btn{
+.drop-btn {
   background-color: #c9c9c9;
   padding: 5px;
   border-radius: 3px;
 }
 
-.wordlist-dropdown ul{
+.wordlist-dropdown ul {
   margin-top: 0;
   padding: 5px;
   background-color: #c9c9c9;
   width: 200px;
 }
 
-.wordlist-dropdown li{
+.wordlist-dropdown li {
   list-style: none;
   border-radius: 3px;
   background-color: #faa;
@@ -58,9 +63,16 @@ export default {
   padding: 5px;
 }
 
-.wordlist-dropdown li:hover{
+.wordlist-dropdown li:hover {
   background-color: #e66;
   cursor: pointer;
+}
+
+li.wordlist-addnew {
+  background-color: #afa;
+}
+li.wordlist-addnew:hover {
+  background-color: #aea;
 }
 </style>
 

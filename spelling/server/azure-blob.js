@@ -19,11 +19,11 @@ async function blobExists(container, blobName) {
   return new Promise(function(resolve, reject) {
     blobService.doesBlobExist(container, blobName, (err, result) => {
       if (err) {
-        reject(err);
+        return reject(err);
       }
 
       if (result) {
-        resolve(result.exists);
+        return resolve(result.exists);
       }
 
       reject(new Error("none of error or result returnes"));
@@ -105,15 +105,17 @@ async function addWordsList(wordList) {
           return Promise.all(
             wordList.list.map(word => {
               let blobName = `${word}.mp3`;
-              blobExists(SpellingBlobContainer, blobName).then(exists => {
-                if (exists) {
-                  return Promise.resolve(blobName);
-                } else {
-                  return tts.text2speech(word).then(stream => {
-                    return addAudio(stream, word);
-                  });
+              return blobExists(SpellingBlobContainer, blobName).then(
+                exists => {
+                  if (exists) {
+                    return Promise.resolve(blobName);
+                  } else {
+                    return tts.text2speech(word).then(stream => {
+                      return addAudio(stream, word);
+                    });
+                  }
                 }
-              });
+              );
             })
           );
         }
