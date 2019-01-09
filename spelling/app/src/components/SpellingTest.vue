@@ -5,6 +5,8 @@
       <span>{{this.words.length}}</span>
       <label>Correct:</label>
       <span>{{ this.correctAnswers }}</span>
+      <label>List Name:</label>
+      <span>{{ this.listName }}</span>
     </div>
     <div v-if="!this.showSummary" class="test-panel">
       <label>
@@ -16,6 +18,23 @@
     </div>
     <div v-if="this.showSummary" class="answer-summary">
       <div>{{ this.summaryText }}</div>
+      <div v-if="misspellingList.length > 0 && wordIndex == words.length" class="misspelling-list">
+        <label>Your misspellings:</label>
+        <ul>
+          <li v-for="(item, index) in misspellingList" :key="index">
+            <table>
+              <tr>
+                <td>Word:</td>
+                <td>{{item[0]}}</td>
+              </tr>
+              <tr>
+                <td>Your spelling:</td>
+                <td>{{item[1]}}</td>
+              </tr>
+            </table>
+          </li>
+        </ul>
+      </div>
       <button v-if="wordIndex !== words.length" v-on:click="nextWord">Next</button>
     </div>
   </div>
@@ -29,12 +48,14 @@ export default {
   data: () => {
     return {
       visible: false,
+      listName: "",
       correctAnswers: 0,
       wordIndex: 0,
       words: [],
       answer: "",
       showSummary: false,
-      summaryText: ""
+      summaryText: "",
+      misspellingList: []
     };
   },
   methods: {
@@ -42,9 +63,13 @@ export default {
       axios
         .get("/wordlist/" + listName)
         .then(response => {
+          this.listName = listName;
           this.words = response.data.list;
           this.visible = true;
           this.showSummary = false;
+          this.misspellingList = [];
+          this.answer = "";
+          this.correctAnswers = 0;
         })
         .catch(err => {
           alert(err);
@@ -73,6 +98,8 @@ export default {
         this.summaryText = `Your answer '${
           this.answer
         }' is wrong, correct spelling is '${this.words[this.wordIndex]}'`;
+
+        this.misspellingList.push([this.words[this.wordIndex], this.answer]);
       }
       this.showSummary = true;
     },
@@ -116,6 +143,7 @@ export default {
 .test-panel label {
   display: block;
   margin-bottom: 5px;
+  font-size: 18px;
 }
 
 .test-panel input {
@@ -124,8 +152,36 @@ export default {
   margin-right: 10px;
 }
 
+.test-panel label button {
+  font-size: 20px;
+}
+
 .answer-summary div {
   margin-bottom: 10px;
   font-size: 22px;
+}
+
+.misspelling-list li tr:last-child td:last-child {
+  color: red;
+}
+
+.misspelling-list li tr:first-child td:last-child {
+  color: green;
+}
+
+.misspelling-list li td:last-child {
+  font-weight: bold;
+  width: 200px;
+  padding-left: 10px;
+}
+
+.misspelling-list li td:first-child {
+  font-size: 16px;
+  text-align: right;
+}
+
+.misspelling-list li {
+  list-style: none;
+  margin-bottom: 10px;
 }
 </style>
