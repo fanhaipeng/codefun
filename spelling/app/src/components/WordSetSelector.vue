@@ -15,7 +15,7 @@ export default {
   name: "WordSetSelector",
   data: () => {
     return {
-      lists: [],
+      lists: []
     };
   },
   methods: {
@@ -40,14 +40,14 @@ export default {
 </script>
 
 <style>
-.wordlist-dropdown  {
+.wordlist-dropdown {
   padding: 0 20px;
 }
 
 .wordlist-dropdown ul {
   margin-top: 0;
   padding: 5px;
-  width: 80%;
+  width: 90%;
 }
 
 .wordlist-dropdown h3 {
@@ -56,10 +56,10 @@ export default {
 
 .wordlist-dropdown li {
   list-style: none;
-  border-radius: 3px;
+  border-radius: 15px;
   background-color: #8dd;
-  margin-bottom: 5px;
-  padding: 5px;
+  margin-bottom: 10px;
+  padding: 5px 15px;
 }
 
 .wordlist-dropdown li:hover {
@@ -76,7 +76,7 @@ button.wordlist-addnew {
   padding: 10px;
   color: #767676;
   position: absolute;
-  right:0;
+  right: 0;
 }
 
 button.wordlist-addnew:hover {

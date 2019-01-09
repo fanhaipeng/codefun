@@ -1,21 +1,23 @@
 <template>
   <div v-if="visible" class="spelling-test">
+    <h3>{{ listName }}</h3>
     <div class="test-progress">
       <label>Total:</label>
       <span>{{this.words.length}}</span>
+      <label>Current:</label>
+      <span>{{ this.wordIndex + 1 }}</span>
       <label>Correct:</label>
       <span>{{ this.correctAnswers }}</span>
-      <label>List Name:</label>
-      <span>{{ this.listName }}</span>
-      <button v-on:click="toggleShow(false)">[X]</button>
+      <button class="close-window" v-on:click="toggleShow(false)">X</button>
     </div>
     <div v-if="!this.showSummary" class="test-panel">
-      <label>
-        Click this audio button
-        <button href="Javascript:void();" v-on:click="playAudio(words[wordIndex])">&#x1f50a;</button> and spell out the word you hear
-      </label>
-      <input v-model="answer">
-      <button v-on:click="checkAnswer">Check Answer</button>
+      <button
+        class="action green"
+        href="Javascript:void();"
+        v-on:click="playAudio(words[wordIndex])"
+      >Pronounce &#x1f56a;</button>
+      <input v-model="answer" placeholder="Type here">
+      <button class="action green" v-on:click="checkAnswer">Check Answer</button>
     </div>
     <div v-if="this.showSummary" class="answer-summary">
       <div>{{ this.summaryText }}</div>
@@ -36,7 +38,7 @@
           </li>
         </ul>
       </div>
-      <button v-if="wordIndex !== words.length" v-on:click="nextWord">Next</button>
+      <button class="action green" v-if="wordIndex !== words.length" v-on:click="nextWord">Next</button>
     </div>
   </div>
 </template>
@@ -125,7 +127,6 @@ export default {
 <style>
 .spelling-test {
   padding: 10px;
-  border: 1px solid #ddd;
   position: absolute;
   top: 0;
   background-color: #fff;
@@ -134,7 +135,6 @@ export default {
 }
 
 .test-progress {
-  border-bottom: 1px solid #ddd;
   padding-bottom: 10px;
   margin-bottom: 10px;
 }
@@ -147,30 +147,32 @@ export default {
   margin-right: 5px;
 }
 
-.test-progress button{
+.test-progress button {
   float: right;
   border: none;
   background-color: #fff;
 }
 
-.test-progress button:hover{
-    cursor: pointer;
-}
-
-.test-panel label {
-  display: block;
-  margin-bottom: 5px;
-  font-size: 18px;
+.test-progress button:hover {
+  cursor: pointer;
 }
 
 .test-panel input {
-  width: 300px;
-  font-size: 24px;
+  width: 80%;
+  font-size: 32px;
   margin-right: 10px;
+  display: block;
+  padding-left: 5px;
+  border: solid 4px #aaeeaa;
+  border-radius: 10px;
+  line-height: 48px;
+  margin-bottom: 20px;
+  padding-left: 5px;
+  background-color: #efeeff;
 }
 
-.test-panel label button {
-  font-size: 20px;
+.test-panel button:first-child {
+  margin-bottom: 20px;
 }
 
 .answer-summary div {
