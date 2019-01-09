@@ -26,9 +26,11 @@ export default {
     },
     addNewWordList: function() {
       this.$refs.wordListEditor.toggleShow(true);
+      this.$refs.spellingTest.toggleShow(false);
     },
     wordListSelected: function(listName) {
       this.$refs.spellingTest.init(listName);
+      this.$refs.wordListEditor.toggleShow(false);
     }
   },
   components: {

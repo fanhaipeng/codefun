@@ -30,6 +30,9 @@ export default {
           alert(err);
         });
     },
+    toggleMenu: function(show) {
+      this.menuOn = show;
+    },
     menuClicked: function() {
       this.menuOn = !this.menuOn;
     },
@@ -39,17 +42,6 @@ export default {
       this.menuOn = false;
     },
     loadWordList: function(listName) {
-      /*
-      axios
-        .get("/wordlist/" + listName)
-        .then(response => {
-          alert(response.data.name);
-          alert(response.data.list);
-        })
-        .catch(err => {
-          alert(err);
-        });
-        */
       this.$emit("wordlist-selected", listName);
       this.menuOn = false;
     }

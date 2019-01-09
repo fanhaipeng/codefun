@@ -50,6 +50,9 @@ export default {
           alert(err);
         });
     },
+    toggleShow: function(show) {
+      this.visible = show;
+    },
     playAudio: function(word) {
       let audio = new Audio(
         `https://codefun.blob.core.windows.net/spelling/${word}.mp3`
