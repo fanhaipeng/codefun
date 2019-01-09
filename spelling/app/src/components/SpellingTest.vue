@@ -70,6 +70,7 @@ export default {
           this.misspellingList = [];
           this.answer = "";
           this.correctAnswers = 0;
+          this.wordIndex = 0;
         })
         .catch(err => {
           alert(err);
