@@ -1,7 +1,8 @@
 module.exports = {
   addAudio: addAudio,
   addWordsList: addWordsList,
-  getWordsLists: getWordsLists
+  getWordsLists: getWordsLists,
+  getWordList: getWordList
 };
 
 const Duplex = require("stream").Duplex;
@@ -158,10 +159,10 @@ async function getWordList(listName) {
         }
 
         if (result) {
-          return {
+          return resolve({
             name: listName,
             list: result.split(",")
-          };
+          });
         }
       }
     );

@@ -19,6 +19,7 @@ app.get("/", (req, res) => {
 
 app.get("/wordlists", getWordLists);
 app.put("/wordlist/:listname", addWordList);
+app.get("/wordlist/:listname", getWordList);
 app.listen(process.env.PORT || 8000);
 
 function addWordList(req, res) {
@@ -48,6 +49,17 @@ function getWordLists(req, res) {
     .getWordsLists()
     .then(lists => {
       res.json(lists);
+    })
+    .catch(err => {
+      res.sendStatus(500).send("Something went wrong, error: " + err);
+    });
+}
+
+function getWordList(req, res) {
+  blob
+    .getWordList(req.params.listname)
+    .then(data => {
+      res.json(data);
     })
     .catch(err => {
       res.sendStatus(500).send("Something went wrong, error: " + err);

@@ -1,13 +1,19 @@
 <template>
   <div id="app">
-    <WordSetSelector ref="wordSetSelector" v-on:add-new-wordlist="addNewWordList"/>
+    <WordSetSelector
+      ref="wordSetSelector"
+      v-on:add-new-wordlist="addNewWordList"
+      v-on:wordlist-selected="wordListSelected"
+    />
     <WordListEditor ref="wordListEditor"/>
+    <SpellingTest ref="spellingTest"/>
   </div>
 </template>
 
 <script>
 import WordSetSelector from "./components/WordSetSelector.vue";
 import WordListEditor from "./components/WordListEditor.vue";
+import SpellingTest from "./components/SpellingTest.vue";
 
 export default {
   name: "app",
@@ -20,14 +26,22 @@ export default {
     },
     addNewWordList: function() {
       this.$refs.wordListEditor.toggleShow(true);
+    },
+    wordListSelected: function(listName) {
+      this.$refs.spellingTest.init(listName);
     }
   },
   components: {
     WordSetSelector,
-    WordListEditor
+    WordListEditor,
+    SpellingTest
   }
 };
 </script>
 
 <style>
+#app {
+  max-width: 600px;
+  margin: auto;
+}
 </style>

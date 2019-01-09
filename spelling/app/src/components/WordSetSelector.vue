@@ -3,7 +3,7 @@
     <button v-on:click="this.menuClicked" class="drop-btn">Select a Word List ▼</button>
     <ul v-if="this.menuOn">
       <li v-on:click="addNew" class="wordlist-addnew">Add New Word List</li>
-      <li v-for="(list, index) in lists" :key="index">{{ list }}</li>
+      <li v-on:click="loadWordList(list)" v-for="(list, index) in lists" :key="index">{{ list }}</li>
     </ul>
   </div>
 </template>
@@ -36,6 +36,22 @@ export default {
     addNew: function() {
       this.menuOn = false;
       this.$emit("add-new-wordlist");
+      this.menuOn = false;
+    },
+    loadWordList: function(listName) {
+      /*
+      axios
+        .get("/wordlist/" + listName)
+        .then(response => {
+          alert(response.data.name);
+          alert(response.data.list);
+        })
+        .catch(err => {
+          alert(err);
+        });
+        */
+      this.$emit("wordlist-selected", listName);
+      this.menuOn = false;
     }
   }
 };
