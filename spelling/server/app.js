@@ -51,7 +51,7 @@ function getWordLists(req, res) {
       res.json(lists);
     })
     .catch(err => {
-      res.sendStatus(500).send("Something went wrong, error: " + err);
+      res.status(500).send("Something went wrong, error: " + err);
     });
 }
 

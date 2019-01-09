@@ -8,6 +8,7 @@
       <button v-on:click="this.submitWordList">Submit</button>
       <button v-on:click="this.cancel">Cancel</button>
     </div>
+    <button class="close-window" v-on:click="toggleShow(false)">X</button>
   </div>
 </template>
 
@@ -42,6 +43,7 @@ export default {
             alert("STATUS: " + response.status);
           } else {
             alert("Successfully created!");
+            this.$emit('wordlist-created');
           }
           this.cancel();
         })
@@ -58,7 +60,11 @@ export default {
   padding: 15px;
   border: 1px solid #ddd;
   width: 300px;
-  margin-top: 10px;
+  position:absolute;
+  top:0;
+  width:100%;
+  height: 100%;
+  background-color:#fff;
 }
 .wordlist-editor label {
   display: block;
@@ -75,5 +81,26 @@ export default {
 .wordlist-editor input,
 .wordlist-editor textarea {
   margin-bottom: 15px;
+  border: solid 4px #aea;
+  border-radius: 8px;
+  padding: 5px;
+}
+
+.wordlist-editor .close-window{
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  border: solid 2px #4a4;
+  background-color: #fff;
+  font-weight: bold;
+  padding: 3px;
+  line-height: 12px;
+  border-radius: 5px;
+}
+
+.wordlist-editor .close-window:hover{
+  cursor: pointer;
+  background-color: #666;
+  color: #fff;
 }
 </style>

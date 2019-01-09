@@ -1,11 +1,12 @@
 <template>
   <div id="app">
+    <h2>Spelling Test for Students</h2>
     <WordSetSelector
       ref="wordSetSelector"
       v-on:add-new-wordlist="addNewWordList"
       v-on:wordlist-selected="wordListSelected"
     />
-    <WordListEditor ref="wordListEditor"/>
+    <WordListEditor ref="wordListEditor" v-on:wordlist-created="wordListCreated"/>
     <SpellingTest ref="spellingTest"/>
   </div>
 </template>
@@ -31,6 +32,9 @@ export default {
     wordListSelected: function(listName) {
       this.$refs.spellingTest.init(listName);
       this.$refs.wordListEditor.toggleShow(false);
+    },
+    wordListCreated: function(){
+      this.$refs.wordSetSelector.init();
     }
   },
   components: {
@@ -43,7 +47,14 @@ export default {
 
 <style>
 #app {
-  max-width: 600px;
+  max-width: 640px;
   margin: auto;
+  position: relative;
+  min-height: 800px;
+}
+
+#app > h2{
+  padding-bottom: 20px;
+  border-bottom: dashed 4px #4a4;
 }
 </style>

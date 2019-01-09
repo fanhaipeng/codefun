@@ -7,11 +7,12 @@
       <span>{{ this.correctAnswers }}</span>
       <label>List Name:</label>
       <span>{{ this.listName }}</span>
+      <button v-on:click="toggleShow(false)">[X]</button>
     </div>
     <div v-if="!this.showSummary" class="test-panel">
       <label>
         Click this audio button
-        <button v-on:click="playAudio(words[wordIndex])">&#x1f50a;</button> and spell out the word you hear
+        <button href="Javascript:void();" v-on:click="playAudio(words[wordIndex])">&#x1f50a;</button> and spell out the word you hear
       </label>
       <input v-model="answer">
       <button v-on:click="checkAnswer">Check Answer</button>
@@ -125,7 +126,11 @@ export default {
 .spelling-test {
   padding: 10px;
   border: 1px solid #ddd;
-  margin-top: 10px;
+  position: absolute;
+  top: 0;
+  background-color: #fff;
+  width: 100%;
+  height: 100%;
 }
 
 .test-progress {
@@ -141,6 +146,17 @@ export default {
 .test-progress label {
   margin-right: 5px;
 }
+
+.test-progress button{
+  float: right;
+  border: none;
+  background-color: #fff;
+}
+
+.test-progress button:hover{
+    cursor: pointer;
+}
+
 .test-panel label {
   display: block;
   margin-bottom: 5px;

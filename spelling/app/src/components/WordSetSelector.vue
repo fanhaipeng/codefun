@@ -1,8 +1,8 @@
 <template>
   <div v-on:load-wordset="init" class="wordlist-dropdown">
-    <button v-on:click="this.menuClicked" class="drop-btn">Select a Word List ▼</button>
-    <ul v-if="this.menuOn">
-      <li v-on:click="addNew" class="wordlist-addnew">Add New Word List</li>
+    <button v-on:click="addNew" class="wordlist-addnew">+</button>
+    <h3>Choose one word list to start test</h3>
+    <ul>
       <li v-on:click="loadWordList(list)" v-for="(list, index) in lists" :key="index">{{ list }}</li>
     </ul>
   </div>
@@ -15,8 +15,7 @@ export default {
   name: "WordSetSelector",
   data: () => {
     return {
-      lists: ["list 1", "list 2", "list 3"],
-      menuOn: false
+      lists: [],
     };
   },
   methods: {
@@ -30,57 +29,60 @@ export default {
           alert(err);
         });
     },
-    toggleMenu: function(show) {
-      this.menuOn = show;
-    },
-    menuClicked: function() {
-      this.menuOn = !this.menuOn;
-    },
     addNew: function() {
-      this.menuOn = false;
       this.$emit("add-new-wordlist");
-      this.menuOn = false;
     },
     loadWordList: function(listName) {
       this.$emit("wordlist-selected", listName);
-      this.menuOn = false;
     }
   }
 };
 </script>
 
 <style>
-.drop-btn {
-  background-color: #c9c9c9;
-  padding: 5px;
-  border-radius: 3px;
+.wordlist-dropdown  {
+  padding: 0 20px;
 }
 
 .wordlist-dropdown ul {
   margin-top: 0;
   padding: 5px;
-  background-color: #c9c9c9;
-  width: 200px;
+  width: 80%;
+}
+
+.wordlist-dropdown h3 {
+  margin-bottom: 10px;
 }
 
 .wordlist-dropdown li {
   list-style: none;
   border-radius: 3px;
-  background-color: #faa;
+  background-color: #8dd;
   margin-bottom: 5px;
   padding: 5px;
 }
 
 .wordlist-dropdown li:hover {
-  background-color: #e66;
+  background-color: #6aa;
   cursor: pointer;
 }
 
-li.wordlist-addnew {
-  background-color: #afa;
+button.wordlist-addnew {
+  background-color: white;
+  border: solid 5px #4a4;
+  border-radius: 12px;
+  font-size: 48px;
+  line-height: 24px;
+  padding: 10px;
+  color: #767676;
+  position: absolute;
+  right:0;
 }
-li.wordlist-addnew:hover {
-  background-color: #aea;
+
+button.wordlist-addnew:hover {
+  background-color: #666;
+  cursor: pointer;
+  color: #fff;
 }
 </style>
 
