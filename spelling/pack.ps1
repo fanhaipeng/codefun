@@ -10,5 +10,9 @@ New-Item -ItemType Directory -Force -Path "$workdir\src\server\"
 Get-Item -Path @(".\server\*.js", ".\server\*.json") | Copy-Item -Destination "$workDir\src\server\" -Force
 Copy-Item -Path ".\web.config" -Destination "$workDir\src\web.config" -Force
 
+Set-Location -Path "$workDir\src\server"
+CMD /C "npm i"
+
 Add-Type -Assembly "system.io.compression.filesystem"
-[system.io.compression.zipfile]::CreateFromDirectory("$workDir\\src", "$workDir\\deploy.zip")
+$timeStamp = Get-Date -Format "yyyyMMddHHmmss";
+[system.io.compression.zipfile]::CreateFromDirectory("$workDir\\src", "$workDir\\deploy$timeStamp.zip")
