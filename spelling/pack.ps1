@@ -1,10 +1,10 @@
 $workDir = $args[0]
+Remove-Item -Path "$workDir\*" -Force -Recurse
 
 Set-Location -Path ".\app";
 CMD /C "vue build .\src\\App.vue"
 Set-Location -Path "..";
 
-Remove-Item -Path $workDir -Force -Recurse
 Copy-Item -Path ".\app\dist\" -Destination "$workDir\src\app\dist" -Recurse -Force
 New-Item -ItemType Directory -Force -Path "$workdir\src\server\" 
 Get-Item -Path @(".\server\*.js", ".\server\*.json") | Copy-Item -Destination "$workDir\src\server\" -Force
