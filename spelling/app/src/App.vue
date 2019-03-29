@@ -26,7 +26,7 @@ export default {
   },
   beforeMount: function() {
     axios.get("/env").then(response => {
-      response.data;
+      this.isTestMode = response.data.EnvMode !== "PROD";
     });
   },
   mounted: function() {
