@@ -8,11 +8,13 @@ module.exports = {
 const Duplex = require("stream").Duplex;
 const storage = require("azure-storage");
 const tts = require("./tts.js");
+const env = require("./env.js");
 
-const BlobConnectionString =
-  "DefaultEndpointsProtocol=https;AccountName=codefun;AccountKey=gLVBpnB4huB1lwGUclhXsKdO4y1YAF4i22XrTHYopSPZ5xsee0C6XFWIEpP/72PT6YFISfFIE7BUjff3tPEyZA==;EndpointSuffix=core.windows.net";
-const SpellingBlobContainer = "spelling";
-const WordListBlobcontainer = "wordlist";
+const BlobConnectionString = env.getEnvVar(env.BlobConnectionStringKey);
+// "DefaultEndpointsProtocol=https;AccountName=codefun;AccountKey=gLVBpnB4huB1lwGUclhXsKdO4y1YAF4i22XrTHYopSPZ5xsee0C6XFWIEpP/72PT6YFISfFIE7BUjff3tPEyZA==;EndpointSuffix=core.windows.net";
+var envMode = env.getEnvVar(env.EnvModeKey);
+const SpellingBlobContainer = envMode === "PROD" ? "spelling" : "spelling-test";
+const WordListBlobcontainer = envMode === "PROD" ? "wordlist" : "wordlist-test";
 
 const blobService = storage.createBlobService(BlobConnectionString);
 

@@ -20,7 +20,15 @@ app.get("/", (req, res) => {
 app.get("/wordlists", getWordLists);
 app.put("/wordlist/:listname", addWordList);
 app.get("/wordlist/:listname", getWordList);
+app.get("/env", getEnv);
+
 app.listen(process.env.PORT || 8000);
+
+function getEnv(req, res) {
+  res.json({
+    EnvMode: "PROD"
+  });
+}
 
 function addWordList(req, res) {
   let dataLoad = "";

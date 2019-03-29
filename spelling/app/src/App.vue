@@ -7,7 +7,7 @@
       v-on:wordlist-selected="wordListSelected"
     />
     <WordListEditor ref="wordListEditor" v-on:wordlist-created="wordListCreated"/>
-    <SpellingTest ref="spellingTest"/>
+    <SpellingTest ref="spellingTest" v-bind:is-testmode="this.isTestMode"/>
   </div>
 </template>
 
@@ -15,9 +15,20 @@
 import WordSetSelector from "./components/WordSetSelector.vue";
 import WordListEditor from "./components/WordListEditor.vue";
 import SpellingTest from "./components/SpellingTest.vue";
+import axios from "axios";
 
 export default {
   name: "app",
+  data: () => {
+    return {
+      isTestMode: true
+    };
+  },
+  beforeMount: function() {
+    axios.get("/env").then(response => {
+      response.data;
+    });
+  },
   mounted: function() {
     this.updateList();
   },

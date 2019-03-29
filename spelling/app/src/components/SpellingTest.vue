@@ -61,6 +61,7 @@ export default {
       misspellingList: []
     };
   },
+  props: ["isTestmode"],
   methods: {
     init: function(listName) {
       axios
@@ -83,8 +84,9 @@ export default {
       this.visible = show;
     },
     playAudio: function(word) {
+      let containerName = this.$props.isTestmode ? "spelling-test" : "spelling";
       let audio = new Audio(
-        `https://codefun.blob.core.windows.net/spelling/${word}.mp3`
+        `https://codefun.blob.core.windows.net/${containerName}/${word}.mp3`
       );
       audio.play();
     },

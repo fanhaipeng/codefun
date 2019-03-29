@@ -1,8 +1,10 @@
 const https = require("https");
 const fs = require("fs");
 const http = require("http");
+const env = require("./env.js");
 
-const subscriptionKey = "4ec4d0210b214c669885bb9ac842ede9";
+const subscriptionKey = env.getEnvVar(env.CognitiveServiceKey);
+//"4ec4d0210b214c669885bb9ac842ede9";
 const tokenUri =
   "https://westus.api.cognitive.microsoft.com/sts/v1.0/issueToken";
 const EightMinutesMilliSeconds = 1000 * 60 * 8;
