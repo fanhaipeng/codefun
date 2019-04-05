@@ -1,21 +1,20 @@
-module.exports = {
-  addAudio: addAudio,
-  addWordsList: addWordsList,
-  getWordsLists: getWordsLists,
-  getWordList: getWordList
-};
-
 const Duplex = require("stream").Duplex;
 const storage = require("azure-storage");
 const tts = require("./tts.js");
 const env = require("./env.js");
-
 const BlobConnectionString = env.getEnvVar(env.BlobConnectionStringKey);
 var envMode = env.getEnvVar(env.EnvModeKey);
 const SpellingBlobContainer = envMode === "PROD" ? "spelling" : "spelling-test";
 const WordListBlobcontainer = envMode === "PROD" ? "wordlist" : "wordlist-test";
+const LogBlobContainer = envMode === "PROD" ? "log" : "log-test";
 
 const blobService = storage.createBlobService(BlobConnectionString);
+
+var LogLevels = {
+  Info: 'Info',
+  Warn: 'Warn',
+  Error: 'Error'
+};
 
 async function blobExists(container, blobName) {
   return new Promise(function(resolve, reject) {
@@ -169,3 +168,27 @@ async function getWordList(listName) {
     );
   });
 }
+
+async function log(level, msg){
+  let logLevel = !level ? LogLevels.Info : level;
+  let t = new Date();
+  let name = `${logLevel},${t.getFullYear()}-${t.getMonth()}-${t.getDate()} ${t.getHours()}:${t.getMinutes()}:${t.getSeconds()}.${t.getMilliseconds()}`;
+  console.log(`[${name}] ${msg}`);
+  blobService.createBlockBlobFromText(
+          LogBlobContainer,
+          name,
+          msg,
+          (err, result) => {
+            if (err) { console.log(err) };
+          }
+        );
+}
+
+module.exports = {
+  addAudio: addAudio,
+  addWordsList: addWordsList,
+  getWordsLists: getWordsLists,
+  getWordList: getWordList,
+  log: log,
+  LogLevels: LogLevels
+};

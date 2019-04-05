@@ -44,9 +44,11 @@ function addWordList(req, res) {
     blob
       .addWordsList(data)
       .then(result => {
+        blob.log(blob.LogLevels.Info, `addWordList success, list name is ${data.name}`)
         res.status(201).end();
       })
       .catch(err => {
+        blob.log(blob.LogLevels.Error, `addWordList failed with error ${err}`)
         res.status(500).send("Something went wrong, error: " + err);
       });
   });
@@ -59,6 +61,7 @@ function getWordLists(req, res) {
       res.json(lists);
     })
     .catch(err => {
+      blob.log(blob.LogLevels.Error, `getWordLists failed with error ${err}`)
       res.status(500).send("Something went wrong, error: " + err);
     });
 }
@@ -71,5 +74,6 @@ function getWordList(req, res) {
     })
     .catch(err => {
       res.sendStatus(500).send("Something went wrong, error: " + err);
+      blob.log(blob.LogLevels.Error, `getWordList failed with error ${err}`)
     });
 }

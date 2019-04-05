@@ -43,6 +43,7 @@ async function getToken() {
       return resolve(sessionToken);
     }
 
+    sessionToken = '';
     let tokenRequestOptions = {
       method: "POST",
       headers: {
